@@ -3,17 +3,18 @@ package personal.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepositoryFile implements Repository {
-    private UserMapper mapper = new UserMapper();
+public class SemiColonRepositoryFile implements Repository {
+    private SemiColonUserMapper mapper = new SemiColonUserMapper();
     private FileOperation fileOperation;
 
-    public RepositoryFile(FileOperation fileOperation) {
+    public SemiColonRepositoryFile(FileOperation fileOperation) {
         this.fileOperation = fileOperation;
     }
 
     @Override
     public List<User> getAllUsers() {
         List<String> lines = fileOperation.readAllLines();
+        lines.removeIf(p-> p.equals(""));
         List<User> users = new ArrayList<>();
         for (String line : lines) {
             users.add(mapper.map(line));

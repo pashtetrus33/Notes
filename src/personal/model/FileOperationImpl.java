@@ -38,8 +38,6 @@ public class FileOperationImpl implements FileOperation {
                 }
             }
             fr.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,11 +50,12 @@ public class FileOperationImpl implements FileOperation {
                 // запись всей строки
                 writer.write(line);
                 // запись по символам
-                writer.append('\n');
+                writer.append("\n");
             }
             writer.flush();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
+
 }

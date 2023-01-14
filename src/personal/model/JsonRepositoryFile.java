@@ -3,17 +3,18 @@ package personal.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepositoryFile implements Repository {
-    private UserMapper mapper = new UserMapper();
+public class JsonRepositoryFile implements Repository {
+    private JsonUserMapper mapper = new JsonUserMapper();
     private FileOperation fileOperation;
 
-    public RepositoryFile(FileOperation fileOperation) {
+    public JsonRepositoryFile(FileOperation fileOperation) {
         this.fileOperation = fileOperation;
     }
 
     @Override
     public List<User> getAllUsers() {
         List<String> lines = fileOperation.readAllLines();
+        lines.removeIf(p-> p.equals(""));
         List<User> users = new ArrayList<>();
         for (String line : lines) {
             users.add(mapper.map(line));
