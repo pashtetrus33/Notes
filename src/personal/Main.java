@@ -1,7 +1,5 @@
 package personal;
 
-import personal.controllers.UserController;
-import personal.model.*;
 import personal.views.ViewUser;
 
 public class Main {
