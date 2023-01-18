@@ -6,7 +6,7 @@ import java.util.List;
 
 public class FileOperationImpl implements FileOperation {
 
-    private String fileName;
+    private final String fileName;
 
     public FileOperationImpl(String fileName) {
         this.fileName = fileName;
@@ -53,7 +53,9 @@ public class FileOperationImpl implements FileOperation {
                 writer.append("\n");
             }
             writer.flush();
+            System.out.println("\nОперация прозведена успешно\n");
         } catch (IOException ex) {
+            System.out.println("\nОперация не произведена\n");
             System.out.println(ex.getMessage());
         }
     }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonRepositoryFile implements Repository {
-    private JsonNoteMapper mapper = new JsonNoteMapper();
-    private FileOperation fileOperation;
+    private final JsonNoteMapper mapper = new JsonNoteMapper();
+    private final FileOperation fileOperation;
 
     public JsonRepositoryFile(FileOperation fileOperation) {
         this.fileOperation = fileOperation;
@@ -14,9 +14,12 @@ public class JsonRepositoryFile implements Repository {
     @Override
     public List<Note> getAllNotes() {
         List<String> lines = fileOperation.readAllLines();
-        lines.removeIf(p-> p.equals(""));
+        lines.removeIf(p -> p.equals(""));
+
         List<Note> notes = new ArrayList<>();
         for (String line : lines) {
+            //line.replace("[", "");
+            //line.replace("]", "");
             notes.add(mapper.map(line));
         }
         return notes;
@@ -30,7 +33,7 @@ public class JsonRepositoryFile implements Repository {
         int max = 0;
         for (Note item : notes) {
             int id = Integer.parseInt(item.getId());
-            if (max < id){
+            if (max < id) {
                 max = id;
             }
         }
@@ -45,13 +48,12 @@ public class JsonRepositoryFile implements Repository {
     public void noteUpdate(Note updatedNote) {
         List<Note> notes = getAllNotes();
         Note noteToBeUpdated = notes.stream().filter(p -> p.getId().equals(updatedNote.getId())).findFirst().orElse(null);
-        if (noteToBeUpdated != null){
+        if (noteToBeUpdated != null) {
             noteToBeUpdated.setTitle(updatedNote.getTitle());
             noteToBeUpdated.setText(updatedNote.getText());
             noteToBeUpdated.setDate(updatedNote.getDate());
-           writeToFile(notes);
-        }
-        else System.out.println("Note with id" + updatedNote.getId() + "not found");
+            writeToFile(notes);
+        } else System.out.println("Заметка с идентификатором: " + updatedNote.getId() + " не найдена");
 
     }
 
@@ -63,9 +65,9 @@ public class JsonRepositoryFile implements Repository {
     }
 
 
-    private void writeToFile(List<Note> notes){
+    private void writeToFile(List<Note> notes) {
         List<String> lines = new ArrayList<>();
-        for (Note item: notes) {
+        for (Note item : notes) {
             lines.add(mapper.map(item));
         }
         fileOperation.saveAllLines(lines);
