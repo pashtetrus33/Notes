@@ -18,8 +18,6 @@ public class JsonRepositoryFile implements Repository {
 
         List<Note> notes = new ArrayList<>();
         for (String line : lines) {
-            //line.replace("[", "");
-            //line.replace("]", "");
             notes.add(mapper.map(line));
         }
         return notes;
