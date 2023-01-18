@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Repository {
     List<Note> getAllNotes();
-    String noteCreate(Note note);
+    void noteCreate(Note note);
     void noteUpdate(Note note);
     void noteDelete(Note note);
 }

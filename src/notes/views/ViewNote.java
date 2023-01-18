@@ -5,15 +5,15 @@ import notes.model.*;
 
 import java.util.Scanner;
 
-public class ViewUser {
+public class ViewNote {
 
     private NoteController noteController;
 
-    public ViewUser(NoteController noteController) {
+    public ViewNote(NoteController noteController) {
         this.noteController = noteController;
     }
 
-    public ViewUser() {
+    public ViewNote() {
     }
 
     public void run() {

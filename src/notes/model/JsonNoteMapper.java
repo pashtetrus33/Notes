@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-public class JsonUserMapper {
+public class JsonNoteMapper {
 
     public String map(Note note) {
 

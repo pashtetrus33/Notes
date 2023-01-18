@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonRepositoryFile implements Repository {
-    private JsonUserMapper mapper = new JsonUserMapper();
+    private JsonNoteMapper mapper = new JsonNoteMapper();
     private FileOperation fileOperation;
 
     public JsonRepositoryFile(FileOperation fileOperation) {
@@ -24,7 +24,7 @@ public class JsonRepositoryFile implements Repository {
 
 
     @Override
-    public String noteCreate(Note note) {
+    public void noteCreate(Note note) {
 
         List<Note> notes = getAllNotes();
         int max = 0;
@@ -39,7 +39,6 @@ public class JsonRepositoryFile implements Repository {
         note.setId(id);
         notes.add(note);
         writeToFile(notes);
-        return id;
     }
 
     @Override

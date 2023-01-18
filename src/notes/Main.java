@@ -1,9 +1,9 @@
 package notes;
 
-import notes.views.ViewUser;
+import notes.views.ViewNote;
 
 public class Main {
     public static void main(String[] args){
-        new ViewUser().run();
+        new ViewNote().run();
     }
 }
