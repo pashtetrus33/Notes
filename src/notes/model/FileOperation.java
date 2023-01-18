@@ -1,4 +1,4 @@
-package personal.model;
+package notes.model;
 
 import java.util.List;
 

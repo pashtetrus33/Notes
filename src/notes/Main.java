@@ -1,6 +1,6 @@
-package personal;
+package notes;
 
-import personal.views.ViewUser;
+import notes.views.ViewUser;
 
 public class Main {
     public static void main(String[] args){

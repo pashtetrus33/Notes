@@ -1,4 +1,4 @@
-package personal.views;
+package notes.views;
 
 public enum Commands {
     NONE,

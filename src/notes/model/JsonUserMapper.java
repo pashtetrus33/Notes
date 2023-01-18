@@ -1,4 +1,4 @@
-package personal.model;
+package notes.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,24 +8,24 @@ import java.io.StringWriter;
 
 public class JsonUserMapper {
 
-    public String map(User user) {
+    public String map(Note note) {
 
         StringWriter writer = new StringWriter();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            mapper.writeValue(writer, user);
+            mapper.writeValue(writer, note);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return writer.toString();
     }
 
-    public User map(String line) {
+    public Note map(String line) {
         StringReader reader = new StringReader(line);
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            return mapper.readValue(reader, User.class);
+            return mapper.readValue(reader, Note.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
