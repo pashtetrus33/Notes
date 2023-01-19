@@ -7,26 +7,16 @@ import java.util.Scanner;
 
 public class ViewNote {
 
-    private NoteController noteController;
+    private final NoteController noteController;
 
     public ViewNote(NoteController noteController) {
         this.noteController = noteController;
-    }
-
-    public ViewNote() {
     }
 
     public void run() {
 
         String id;
         String command;
-        FileOperation fileOperation;
-        Repository repository;
-
-        fileOperation = new FileOperationImpl("notes.json");
-        repository = new JsonRepositoryFile(fileOperation);
-        this.noteController = new NoteController(repository);
-
 
         while (true) {
 
@@ -74,7 +64,7 @@ public class ViewNote {
                         break;
                     //list
                     case "5":
-                        if (noteController.recordsExist()){
+                        if (noteController.recordsExist()) {
                             System.out.println("Список всех заметок:");
                             for (Note item : noteController.readAll()) {
                                 System.out.println(item);
