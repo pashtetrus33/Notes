@@ -13,7 +13,7 @@ public class NoteController {
         this.repository = repository;
     }
 
-    public void saveNote(Note note){
+    public void saveNote(Note note) {
         repository.noteCreate(note);
     }
 
@@ -32,7 +32,7 @@ public class NoteController {
         return repository.getAllNotes();
     }
 
-    public void noteUpdate(String id, Note updatedNote){
+    public void noteUpdate(String id, Note updatedNote) {
         updatedNote.setId(id);
         repository.noteUpdate(updatedNote);
     }
@@ -41,7 +41,6 @@ public class NoteController {
         Note note = repository.getAllNotes().stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
         repository.noteDelete(note);
     }
-
 
 
     public void idExists(String id) throws Exception {
@@ -53,9 +52,9 @@ public class NoteController {
 
     public boolean recordsExist() {
         List<Note> notes = repository.getAllNotes();
-        boolean result = (notes.size() != 0);
+        boolean result = (notes != null) && (notes.get(0).getId() != null);
         if (!result)
-            System.out.println("\nСписок заметок пустой.");
+            System.out.println("\nСписок заметок пустой.\n");
         return result;
     }
 }

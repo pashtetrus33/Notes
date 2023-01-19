@@ -1,5 +1,6 @@
 package notes.model;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,20 +15,24 @@ public class JsonRepositoryFile implements Repository {
     @Override
     public List<Note> getAllNotes() {
         List<String> lines = fileOperation.readAllLines();
-        lines.removeIf(p -> p.equals(""));
+        if (lines.size() != 0){
 
-        List<Note> notes = new ArrayList<>();
-        for (String line : lines) {
-            notes.add(mapper.map(line));
+            return mapper.remap(lines.get(0));
         }
-        return notes;
+        return null;
     }
 
 
     @Override
     public void noteCreate(Note note) {
+        List<Note> notes;
+        if ((getAllNotes() != null) && (getAllNotes().get(0).getId() != null)){
+            notes = getAllNotes();
+        }
+        else {
+            notes = new ArrayList<>();
+        }
 
-        List<Note> notes = getAllNotes();
         int max = 0;
         for (Note item : notes) {
             int id = Integer.parseInt(item.getId());
@@ -65,9 +70,7 @@ public class JsonRepositoryFile implements Repository {
 
     private void writeToFile(List<Note> notes) {
         List<String> lines = new ArrayList<>();
-        for (Note item : notes) {
-            lines.add(mapper.map(item));
-        }
+        lines.add(mapper.map(notes));
         fileOperation.saveAllLines(lines);
     }
 }
