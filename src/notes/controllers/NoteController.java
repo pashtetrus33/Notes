@@ -17,15 +17,12 @@ public class NoteController {
         repository.noteCreate(note);
     }
 
-    public Note noteRead(String id) throws Exception {
-        List<Note> notes = repository.getAllNotes();
-        for (Note note : notes) {
-            if (note.getId().equals(id)) {
-                return note;
-            }
-        }
+    public Note noteRead(String id)  {
+       return repository.noteRead(id);
+    }
 
-        throw new Exception("Заметка с идентификатром: " + id + " не найдена");
+    public void exit(){
+        repository.exit();
     }
 
     public List<Note> readAll() {
@@ -43,16 +40,17 @@ public class NoteController {
     }
 
 
-    public void idExists(String id) throws Exception {
+    public boolean idExists(String id) throws Exception {
         List<Note> notes = repository.getAllNotes();
         Note note = notes.stream().filter(p -> p.getId().equals(id)).findAny().orElse(null);
         if (note == null)
             throw new Exception("Заметка с идентификатром: " + id + " не найдена.");
+        return true;
     }
 
     public boolean recordsExist() {
         List<Note> notes = repository.getAllNotes();
-        boolean result = (notes != null) && (notes.get(0).getId() != null);
+        boolean result = ((notes != null) && (notes.size() != 0));
         if (!result)
             System.out.println("\nСписок заметок пустой.\n");
         return result;

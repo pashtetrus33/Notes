@@ -1,48 +1,34 @@
 package notes.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 
 public class JsonNoteMapper {
 
     public String map(List<Note> notes) {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return gson.toJson(notes);
 
-        StringWriter writer = new StringWriter();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(writer, notes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return writer.toString();
     }
 
-    public List<Note> remap(String line) {
-        List<Note> notes = new ArrayList<>();
-        String[] lines = line.split("},");
-        for (String item: lines) {
-            item = item.replace("{", "");
-            item = item.replace("}", "");
-            item = item.replace("[", "");
-            item = item.replace("]", "");
-            item = "{" + item + "}";
+    public List<Note> remap(List<String> lines) {
+        StringBuilder result = new StringBuilder();
 
-            StringReader reader = new StringReader(item);
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-
-                notes.add(mapper.readValue(reader, Note.class));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
+        for (String item : lines) {
+            result.append(item);
         }
-        return notes;
+        Type listOfMyClassObject = new TypeToken<ArrayList<Note>>() {
+        }.getType();
+        Gson gson = new Gson();
+
+        return gson.fromJson(result.toString(), listOfMyClassObject);
     }
 }

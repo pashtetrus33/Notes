@@ -20,11 +20,13 @@ public class ViewNote {
 
         while (true) {
 
-
             command = prompt("1 - создать заметку\n2 - прочитать заметку\n3 - обновить заметку\n4 - удалить заметку\n5 - прочитать все заметки\n6 - выход\n" +
                     "Сделайте Ваш выбор: ");
             //exit
-            if (command.equals("6")) return;
+            if (command.equals("6")) {
+                noteController.exit();
+                return;
+            }
             try {
                 switch (command) {
                     //create
@@ -36,11 +38,10 @@ public class ViewNote {
                     case "2":
                         if (noteController.recordsExist()) {
                             id = prompt("Введите id заметки: ");
-                            try {
+                            if (noteController.idExists(id)) {
                                 Note note = noteController.noteRead(id);
+                                System.out.println("Найденная заметка:");
                                 System.out.println(note);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
                             }
                         }
                         break;
